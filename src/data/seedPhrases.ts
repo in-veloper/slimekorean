@@ -1,0 +1,42 @@
+import { PhraseKind } from '../types/word';
+
+// 초등 저학년도 알 만한 쉬운 속담·관용구만 골랐다. krdict 검색 특성상
+// "정확히 이 표현"으로 찾아야 해서(part=ip&method=exact), 문장 형태를
+// 사전에 실제로 등재된 표기 그대로 적어 둔다.
+export const SEED_PHRASES: { text: string; kind: PhraseKind }[] = [
+  { text: '가는 말이 고와야 오는 말이 곱다', kind: 'proverb' },
+  { text: '티끌 모아 태산', kind: 'proverb' },
+  { text: '백지장도 맞들면 낫다', kind: 'proverb' },
+  { text: '원숭이도 나무에서 떨어진다', kind: 'proverb' },
+  { text: '소 잃고 외양간 고친다', kind: 'proverb' },
+  { text: '발 없는 말이 천 리 간다', kind: 'proverb' },
+  { text: '우물 안 개구리', kind: 'proverb' },
+  { text: '등잔 밑이 어둡다', kind: 'proverb' },
+  { text: '꿩 대신 닭', kind: 'proverb' },
+  { text: '콩 심은 데 콩 나고 팥 심은 데 팥 난다', kind: 'proverb' },
+  { text: '쥐구멍에도 볕 들 날 있다', kind: 'proverb' },
+  { text: '돌다리도 두들겨 보고 건너라', kind: 'proverb' },
+  { text: '식은 죽 먹기', kind: 'proverb' },
+  { text: '바늘 도둑이 소도둑 된다', kind: 'proverb' },
+  { text: '하늘이 무너져도 솟아날 구멍이 있다', kind: 'proverb' },
+  { text: '고생 끝에 낙이 온다', kind: 'proverb' },
+  { text: '가재는 게 편', kind: 'proverb' },
+  { text: '누워서 떡 먹기', kind: 'proverb' },
+  { text: '발이 넓다', kind: 'idiom' },
+  { text: '손이 크다', kind: 'idiom' },
+  { text: '발 벗고 나서다', kind: 'idiom' },
+  { text: '눈이 높다', kind: 'idiom' },
+  { text: '귀가 얇다', kind: 'idiom' },
+  { text: '입이 무겁다', kind: 'idiom' },
+  { text: '손발이 맞다', kind: 'idiom' },
+  { text: '목이 빠지게 기다리다', kind: 'idiom' },
+  { text: '가슴이 뜨끔하다', kind: 'idiom' },
+  { text: '코가 납작해지다', kind: 'idiom' },
+  { text: '어깨가 무겁다', kind: 'idiom' },
+  { text: '입에 침이 마르다', kind: 'idiom' },
+  { text: '눈에 넣어도 아프지 않다', kind: 'idiom' },
+  { text: '진땀을 빼다', kind: 'idiom' },
+  { text: '마음을 놓다', kind: 'idiom' },
+  { text: '기가 막히다', kind: 'idiom' },
+  { text: '피가 되고 살이 되다', kind: 'idiom' },
+];
