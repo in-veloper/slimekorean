@@ -209,23 +209,26 @@ export async function buildSentenceBlankQuiz(words: KrWord[], limit: number = DE
   return qs.slice(0, limit);
 }
 
-// 전용 메뉴("비슷한말 찾기" 등)에서는 가진 짝/속담을 전부 시도한다 — 개수
-// 자체가 많지 않은 데다(6~35개), 통신 상태가 안 좋아 몇 개가 실패해도
-// 나머지로 문제를 만들 수 있게 여유를 준다. 부족한 채로 4개 미만만 성공하면
-// (오답 보기를 못 채워서) 결과가 아예 없을 수 있는데, 그건 전용 빌더
-// 호출자(App.tsx)가 "인터넷을 확인해 주세요" 로 안내한다.
+// 전용 메뉴("비슷한말 찾기" 등)에서는 필요한 것보다 조금 더 넉넉히
+// 시도한다(+6개) — 통신 상태가 안 좋아 몇 개가 실패해도 나머지로 문제를
+// 만들 수 있을 만큼의 여유. 가진 걸 전부 다 시도하면(특히 속담·관용구
+// 35개) 회선이 느릴 때 로딩이 너무 오래 걸려서, 여유분은 딱 이 정도로
+// 제한한다. 그래도 4개 미만만 성공하면 App.tsx가 "인터넷을 확인해
+// 주세요" 로 안내한다.
+const SAMPLE_MARGIN = 6;
+
 export async function buildSynonymQuiz(pool: KrWord[], limit: number = DEFAULT_QUIZ_LENGTH): Promise<QuizQuestion[]> {
-  const qs = await relationQuestions(SYNONYM_PAIRS, 'synonym', pool, SYNONYM_PAIRS.length);
+  const qs = await relationQuestions(SYNONYM_PAIRS, 'synonym', pool, Math.min(SYNONYM_PAIRS.length, limit + SAMPLE_MARGIN));
   return shuffle(qs).slice(0, limit);
 }
 
 export async function buildAntonymQuiz(pool: KrWord[], limit: number = DEFAULT_QUIZ_LENGTH): Promise<QuizQuestion[]> {
-  const qs = await relationQuestions(ANTONYM_PAIRS, 'antonym', pool, ANTONYM_PAIRS.length);
+  const qs = await relationQuestions(ANTONYM_PAIRS, 'antonym', pool, Math.min(ANTONYM_PAIRS.length, limit + SAMPLE_MARGIN));
   return shuffle(qs).slice(0, limit);
 }
 
 export async function buildPhraseQuiz(limit: number = DEFAULT_QUIZ_LENGTH): Promise<QuizQuestion[]> {
-  const qs = await phraseQuestions(SEED_PHRASES.length);
+  const qs = await phraseQuestions(Math.min(SEED_PHRASES.length, limit + SAMPLE_MARGIN));
   return shuffle(qs).slice(0, limit);
 }
 

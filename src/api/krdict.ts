@@ -43,7 +43,7 @@ function buildQuery(params: Record<string, string | number>): string {
     .join('&');
 }
 
-const REQUEST_TIMEOUT_MS = 5000;
+const REQUEST_TIMEOUT_MS = 3500;
 
 // 정부 서버가 가끔(특히 통신사 회선에서) 응답을 아예 안 주고 연결만 물고
 // 있는 경우가 있었다 — 타임아웃이 없으면 그 요청 하나 때문에 퀴즈 전체가
@@ -188,11 +188,11 @@ async function mapWithConcurrency<T, R>(items: T[], limit: number, fn: (item: T)
 }
 
 export async function getWords(words: string[]): Promise<KrWord[]> {
-  const results = await mapWithConcurrency(words, 4, getWord);
+  const results = await mapWithConcurrency(words, 8, getWord);
   return results.filter((w): w is KrWord => !!w);
 }
 
 export async function getPhrases(items: { text: string; kind: PhraseKind }[]): Promise<KrPhrase[]> {
-  const results = await mapWithConcurrency(items, 4, (it) => getPhrase(it.text, it.kind));
+  const results = await mapWithConcurrency(items, 8, (it) => getPhrase(it.text, it.kind));
   return results.filter((p): p is KrPhrase => !!p);
 }

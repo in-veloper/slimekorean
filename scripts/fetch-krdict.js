@@ -26,8 +26,14 @@ function sleep(ms) {
 
 async function apiGet(pathname, params) {
   const url = `${BASE}${pathname}?${new URLSearchParams(params).toString()}`;
-  const res = await fetch(url, { headers: { 'User-Agent': UA } });
-  return res.text();
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 8000);
+  try {
+    const res = await fetch(url, { headers: { 'User-Agent': UA }, signal: controller.signal });
+    return await res.text();
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 function tag(xml, name) {
